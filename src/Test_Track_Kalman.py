@@ -3,7 +3,6 @@
     ~~~~~~~~~~~~~~~~~~~~~~~~~~
 """
 from src.Track_Kalman import track_Kalman
-from src.GBP import get_ball_pos
 import numpy as np
 from matplotlib import pyplot as plt
 
