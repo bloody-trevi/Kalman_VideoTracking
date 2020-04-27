@@ -14,15 +14,19 @@ def track_Kalman(xm, ym, param):
     x = param.get_x()
     P = param.get_P()
 
-    x_p = A * x
+    x_p = np.dot(A, x)
     P_p = A * P * np.transpose(A) + Q
 
-    K = P_p * np.transpose(H) * np.linalg.inv(H * P_p * np.transpose(H) + R)
-    z = np.array([[xm], [ym]])
-    x = x_p + K * (z - H * x_p)
-    P = P_p - K * H * P_p
+    K_1 = np.dot(P_p, np.transpose(H))
+    K_2 = np.linalg.inv(H.dot(np.dot(P_p, np.transpose(H))) + R) # inv(H*P_p*H' + R)
+    K = np.dot(K_1, K_2)
 
-    xh = x[1]
-    yh = x[3]
+    z = np.transpose(np.array([xm, ym]))
+    x_ = z - np.dot(H, x_p)
+    x = x_p + np.dot(K, x_)
+    P = P_p - K.dot(np.dot(H, P_p))
+
+    xh = x[0]
+    yh = x[2]
     param.set_x_P(x, P)
     return xh, yh, param
