@@ -6,6 +6,7 @@ from src.Track_Kalman import track_Kalman
 import numpy as np
 from matplotlib import pyplot as plt
 from src.Kalman_Params_class import KalmanParam
+import random
 
 
 if __name__ == '__main__':
@@ -34,8 +35,9 @@ if __name__ == '__main__':
     param = KalmanParam(A, H, Q, R, x, P)
 
     for k in range(1, 307, 10): # 1, num_locations
-
-        xm, ym = (int(data[k][0]), int(data[k][1]))
+        rand1 = random.randrange(-50, 50)
+        rand2 = random.randrange(-50, 50)
+        xm, ym = (int(data[k][0]) + rand1, int(data[k][1]) + rand2)
         xh, yh, param = track_Kalman(xm, ym, param)
 
         ax1.plot(xm, ym, 'r.')
