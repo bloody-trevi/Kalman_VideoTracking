@@ -28,7 +28,8 @@ def track_Kalman(xm, ym, param):
     x = x_p + np.dot(K, x_)
     P = P_p - K.dot(np.dot(H, P_p))
 
-    xh = x[0]
-    yh = x[2]
+    # [위치 x, 속도 x, 위치 y, 속도 y]
+    xh = x[0]   # 위치 x
+    yh = x[2]   # 위치 y
     param.set_x_P(x, P)
     return xh, yh, param
