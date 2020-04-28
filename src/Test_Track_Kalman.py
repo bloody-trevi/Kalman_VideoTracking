@@ -34,9 +34,10 @@ if __name__ == '__main__':
     P = 100 * np.eye(4, k=0, dtype=int)
     param = KalmanParam(A, H, Q, R, x, P)
 
+    rand_n = 100
     for k in range(1, 307, 10): # 1, num_locations
-        rand1 = random.randrange(-50, 50)
-        rand2 = random.randrange(-50, 50)
+        rand1 = random.randrange(-rand_n, rand_n)
+        rand2 = random.randrange(-rand_n, rand_n)
         xm, ym = (int(data[k][0]) + rand1, int(data[k][1]) + rand2)
         xh, yh, param = track_Kalman(xm, ym, param)
 
@@ -47,7 +48,9 @@ if __name__ == '__main__':
         xh_saved[k - 1, :] = np.array([xh, yh])
 
     ax2 = fig.add_subplot(221)
-    ax2.plot(xm_saved[:, 0], xm_saved[:, 1], 'r.')
+    ax2.plot(xm_saved[:, 0], xm_saved[:, 1], 'r.', label='measured')
+    plt.legend(loc='best')
     ax3 = fig.add_subplot(222)
-    ax3.plot(xh_saved[:, 0], xh_saved[:, 1], 'b.')
+    ax3.plot(xh_saved[:, 0], xh_saved[:, 1], 'b.', label='filtered')
+    plt.legend(loc='best')
     plt.show()
