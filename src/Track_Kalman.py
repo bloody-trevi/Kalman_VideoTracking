@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def track_Kalman(xm, ym, first_run=False):
+def track_Kalman(xm, ym, first_run):
     """
     영상 처리로 얻은 x, y 값으로 칼만 필터를 거쳐 추정한 x, y값을 구한다.
 
